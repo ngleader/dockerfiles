@@ -1,4 +1,4 @@
-FROM ngleader/docker-base:centos7-webtatic
+FROM ngleader/docker-base:centos7-epel
 MAINTAINER ngleader <ngleader@gmail.com>
 
 # remi repo
