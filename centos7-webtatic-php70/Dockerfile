@@ -1,4 +1,4 @@
-FROM ngleader/docker-base:centos6-webtatic
+FROM ngleader/docker-base:centos7-webtatic
 MAINTAINER ngleader <ngleader@gmail.com>
 
 RUN yum install -y php70w php70w-bcmath php70w-cli php70w-common php70w-dba php70w-devel php70w-enchant php70w-fpm \
