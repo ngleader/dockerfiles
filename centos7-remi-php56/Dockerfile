@@ -15,6 +15,9 @@ RUN yum install -y git \
         rm -f /etc/httpd/conf.d/welcome.conf && \
         sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /opt/remi/php56/root/etc/php.ini
 
+# Install composer
+RUN curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
