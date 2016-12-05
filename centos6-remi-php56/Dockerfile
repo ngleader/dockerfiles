@@ -14,7 +14,8 @@ RUN yum install -y git \
         php56-php-pecl-yaml php56-php-pecl-zip php56-php-pecl-zmq php56-php-phpiredis php56-php-process php56-php-tidy \
         php56-php-xml php56-php-xmlrpc && \
         rm -f /etc/httpd/conf.d/welcome.conf && \
-        sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /opt/remi/php56/root/etc/php.ini
+        sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /opt/remi/php56/root/etc/php.ini && \
+        ln -s /usr/bin/php56 /usr/bin/php
 
 # Install composer
 RUN curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer

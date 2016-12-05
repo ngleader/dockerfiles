@@ -13,7 +13,8 @@ RUN yum install -y git \
         php71-php-pecl-yaml php71-php-pecl-zip php71-php-pecl-zmq php71-php-phpiredis php71-php-process php71-php-tidy \
         php71-php-xml php71-php-xmlrpc && \
         rm -f /etc/httpd/conf.d/welcome.conf && \
-        sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /etc/opt/remi/php71/php.ini
+        sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /etc/opt/remi/php71/php.ini && \
+        ln -s /usr/bin/php71 /usr/bin/php
 
 # Install composer
 RUN curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
