@@ -19,6 +19,8 @@ RUN yum install -y git \
 
 # Install composer
 RUN curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+# Install phpunit
+RUN curl https://phar.phpunit.de/phpunit.phar -L -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
 
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]

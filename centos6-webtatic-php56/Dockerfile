@@ -11,6 +11,8 @@ RUN yum install -y git php56w php56w-bcmath php56w-cli php56w-common php56w-dba 
 
 # Install composer
 RUN curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
+# Install phpunit
+RUN curl https://phar.phpunit.de/phpunit.phar -L -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
 
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
