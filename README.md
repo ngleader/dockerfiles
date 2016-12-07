@@ -66,8 +66,28 @@ docker run -d -p 80 \
 ```
 
 ### Container 안으로 
-`docker exec -t -i {container id} /bin/bash`
+`docker exec -it {container id} /bin/bash`
 
+### PHP-CLI 
+
+아래 내용으로 각 파일 저장 후 `$ chmod +x php70` 으로 실행권한을 추가후 사용
+
+- php70
+
+```
+#!/bin/bash
+docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=php ngleader/docker-base:centos7-webtatic-php70 $@
+```
+- composer
+```
+#!/bin/bash
+docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=composer ngleader/docker-base:centos7-webtatic-php70 $@
+```
+- phpunit
+```
+#!/bin/bash
+docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=phpunit ngleader/docker-base:centos7-webtatic-php70 $@
+```
 
 ### Run with MySQL etc.
 
