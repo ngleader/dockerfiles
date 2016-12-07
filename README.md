@@ -1,44 +1,19 @@
 # dockerfiles
 
-## Apache + PHP
+## Apache + PHP 구동
 
-### PHP 7.1
-#### centos7-remi-php71
 ```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php71
+$ docker run -d -p 8080:80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php71
 ```
-#### centos6-remi-php71
-```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos6-remi-php71
-```
-
-### PHP 7.0
-#### centos7-webtatic-php70
-```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-webtatic-php70
-```
-#### centos6-webtatic-php70
-```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-webtatic-php70
-```
-
-### PHP 5.6
-#### centos7-webtatic-php56
-```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-webtatic-php56
-```
-#### centos6-webtatic-php56
-```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos6-webtatic-php56
-```
-#### centos7-remi-php56
-```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php56
-```
-#### centos6-remi-php56
-```
-docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos6-remi-php56
-```
+### docker images
+- ngleader/docker-base:centos7-remi-php71
+- ngleader/docker-base:centos6-remi-php71
+- ngleader/docker-base:centos7-webtatic-php70
+- ngleader/docker-base:centos6-webtatic-php70
+- ngleader/docker-base:centos7-webtatic-php56
+- ngleader/docker-base:centos6-webtatic-php56
+- ngleader/docker-base:centos7-remi-php56
+- ngleader/docker-base:centos6-remi-php56
 
 ### Customize
 대부분의 php extensions가 설치되어 있습니다.
@@ -47,17 +22,16 @@ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos6-remi-ph
 1. 필요한 버전의 dummy container 구동
 2. config files 복사
 ```
-# remi package인 경우 path가 다르니 phpinfo() 등으로 확인이 필요합니다.
-docker cp {container id}:/etc/php/php.ini .
-docker cp {container id}:/etc/php.d .
-docker cp {container id}:/etc/httpd/conf/httpd.conf .
-docker cp {container id}:/etc/httpd/conf.d .
-docker {container id} stop
-docker {container id} rm
+$ docker cp {container id}:/etc/php/php.ini .
+$ docker cp {container id}:/etc/php.d .
+$ docker cp {container id}:/etc/httpd/conf/httpd.conf .
+$ docker cp {container id}:/etc/httpd/conf.d .
+$ docker {container id} stop && docker {container id} rm
 ```
+* remi package인 경우 path가 다르니 phpinfo() 등으로 확인이 필요합니다.
 3. config가 반영된 새로운 container 구동
 ```
-docker run -d -p 80 \
+$ docker run -d -p 80 \
     -v $(pwd)/html:/var/www/html \
     -v $(pwd)/php.ini:/etc/php.ini \
     -v $(pwd)/php.d:/etc/php.d \
@@ -66,7 +40,7 @@ docker run -d -p 80 \
 ```
 
 ### Container 안으로 
-`docker exec -it {container id} /bin/bash`
+`$ docker exec -it {container id} /bin/bash`
 
 ### PHP-CLI 
 
