@@ -8,9 +8,9 @@ PHP 공식 Docker가 제공되지만, 별도 php extension가 필요하면, dock
 $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php71
 ```
 
-`-p 80` 으로 구동한 경우 container의 80 port를 host의 random port와 연결한다는 의미로
-`docker ps` 를 통해 나온 `0.0.0.0:xxxxx->80` 과 같이 브라우져에서 `http://127.0.0.1:xxxxx`로 접속이 가능하며
-`-p 8080:80` 과 같이 host의 8080 port로 지정하여 구동이 가능합니다.
+`-p 80` 으로 구동한 경우, container의 80 port를 host의 random port와 연결되고
+`docker ps`로 나온 `0.0.0.0:xxxxx->80`를 브라우져에서 `http://127.0.0.1:xxxxx`로 접속이 가능합니다.
+또는 host port를 8080으로 지정하여 `-p 8080:80` 구동이 가능합니다.
 
 ### docker images
 - ngleader/docker-base:centos7-remi-php71
@@ -23,7 +23,7 @@ $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-
 - ngleader/docker-base:centos6-remi-php56
 
 ### Config 수정
-아래와 같이 php와 httpd config를 수정하여 container를 구동할 수 있습니다.
+memory_limit 수정, php extension 수정, http rewrite 수정 등 php와 httpd config를 수정하여 container를 구동할 수 있습니다.
 
 #### 필요한 버전의 dummy container 구동
 #### dummy container에서 config files 복사
@@ -52,10 +52,9 @@ $ docker run -d -p 80 \
 
 ### PHP-CLI
 
-
 #### php70
 
-아래 내용으로 각 파일 저장 후 `$ chmod +x php70` 와 같이 실행 권한을 추가 후 사용
+아래 내용으로 각 파일 저장 후 `$ chmod +x php70` 와 같이 실행 권한을 추가하여 사용
 ```
 #!/bin/bash
 docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=php ngleader/docker-base:centos7-webtatic-php70 $@
@@ -78,7 +77,7 @@ docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=phpuni
 
 ### MySQL 등의 Container와 함께 구동하기
 
-#### docker
+#### docker 버전
 
 ```
 $ docker run -d --name mysql -p 3306 \
@@ -94,9 +93,9 @@ $ docker run -d -p 80 \
     ngleader/docker-base:centos6-webtatic-php56
 ```
 
-#### docker-compose
+#### docker-compose 버전
 
-아래 내용을 docker-compose.yml로 저장 후 `$ docker-compose up -d`
+아래 내용을 docker-compose.yml 로 저장 후 `$ docker-compose up -d`
 
 ```
 version: '2'
