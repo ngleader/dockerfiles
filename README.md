@@ -3,9 +3,12 @@
 ## Apache + PHP 구동 방법. 간단 버전
 
 ```
-$ docker run -d -p 8080:80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php71
+$ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php71
 ```
- 
+
+`-p 80` 으로 구동한 경우 container의 80 port를 host의 random port와 연결한다는 의미로
+`docker ps` 를 통해 나온 `0.0.0.0:xxxxx->80` 과 같이 브라우져에서 `http://127.0.0.1:xxxxx`로 접속이 가능하며
+`-p 8080:80` 과 같이 host의 8080 port를 지정할 수도 있습니다.
 
 ### docker images
 - ngleader/docker-base:centos7-remi-php71
