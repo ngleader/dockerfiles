@@ -19,8 +19,8 @@ $ docker run -d -p 8080:80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-
 대부분의 php extensions가 설치되어 있습니다.
 아래와 같이 php와 httpd config 파일을 수정하여 container를 구동할 수 있습니다
 
-1. 필요한 버전의 dummy container 구동
-2. config files 복사
+#### 필요한 버전의 dummy container 구동
+#### dummy container에서 config files 복사
 ```
 $ docker cp {container id}:/etc/php/php.ini .
 $ docker cp {container id}:/etc/php.d .
@@ -30,7 +30,8 @@ $ docker {container id} stop
 $ docker {container id} rm
 ```
 * remi package인 경우 path가 다르니 phpinfo() 등으로 확인이 필요합니다.
-3. config가 반영된 새로운 container 구동
+
+#### config가 반영된 새로운 container 구동
 ```
 $ docker run -d -p 80 \
     -v $(pwd)/html:/var/www/html \
@@ -40,25 +41,30 @@ $ docker run -d -p 80 \
     ngleader/docker-base:centos6-webtatic-php56
 ```
 
-### Container 안으로 
+### Container 안으로 접속하기 
 `$ docker exec -it {container id} /bin/bash`
 
 ### PHP-CLI 
 
-아래 내용으로 각 파일 저장 후 `$ chmod +x php70` 으로 실행권한을 추가후 사용
+아래 내용으로 각 파일 저장 후 `$ chmod +x php70` 와 같이 실행 권한을 추가 후 사용
 
-- php70
+#### php70
 
 ```
 #!/bin/bash
 docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=php ngleader/docker-base:centos7-webtatic-php70 $@
 ```
-- composer
+
+```
+$ ./php70 --version
+```
+#### composer
 ```
 #!/bin/bash
 docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=composer ngleader/docker-base:centos7-webtatic-php70 $@
 ```
-- phpunit
+
+#### phpunit
 ```
 #!/bin/bash
 docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=phpunit ngleader/docker-base:centos7-webtatic-php70 $@
