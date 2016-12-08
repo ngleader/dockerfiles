@@ -1,10 +1,12 @@
-# dockerfiles
+# PHP 개발을 위한 Docker 
 
-## Apache + PHP 구동
+## Apache + PHP 구동 방법. 간단 버전
 
 ```
 $ docker run -d -p 8080:80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php71
 ```
+ 
+
 ### docker images
 - ngleader/docker-base:centos7-remi-php71
 - ngleader/docker-base:centos6-remi-php71
@@ -15,7 +17,7 @@ $ docker run -d -p 8080:80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-
 - ngleader/docker-base:centos7-remi-php56
 - ngleader/docker-base:centos6-remi-php56
 
-### Customize
+### Config 수정
 대부분의 php extensions가 설치되어 있습니다.
 아래와 같이 php와 httpd config 파일을 수정하여 container를 구동할 수 있습니다
 
@@ -29,7 +31,7 @@ $ docker cp {container id}:/etc/httpd/conf.d .
 $ docker {container id} stop 
 $ docker {container id} rm
 ```
-* remi package인 경우 path가 다르니 phpinfo() 등으로 확인이 필요합니다.
+* remi package인 경우 path가 다르니 `phpinfo()` 또는 `Container 안으로 접속하기` 로 확인이 필요합니다.
 
 #### config가 반영된 새로운 container 구동
 ```
@@ -41,15 +43,15 @@ $ docker run -d -p 80 \
     ngleader/docker-base:centos6-webtatic-php56
 ```
 
-### Container 안으로 접속하기 
+### Container 안으로 접속하기
 `$ docker exec -it {container id} /bin/bash`
 
-### PHP-CLI 
+### PHP-CLI
 
-아래 내용으로 각 파일 저장 후 `$ chmod +x php70` 와 같이 실행 권한을 추가 후 사용
 
 #### php70
 
+아래 내용으로 각 파일 저장 후 `$ chmod +x php70` 와 같이 실행 권한을 추가 후 사용
 ```
 #!/bin/bash
 docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=php ngleader/docker-base:centos7-webtatic-php70 $@
@@ -70,7 +72,7 @@ docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=compos
 docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=phpunit ngleader/docker-base:centos7-webtatic-php70 $@
 ```
 
-### Run with MySQL etc.
+### MySQL 등의 Container와 함께 구동하기
 
 #### docker
 
