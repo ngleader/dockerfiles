@@ -83,10 +83,10 @@ $ docker run -d -p 80 \
 ```
 
 #### docker-compose
-`$ docker-compose up -d`
- 
+
+아래 내용을 docker-compose.yml로 저장 후 `$ docker-compose up -d`
+
 ```
-# docker-compose.yml
 version: '2'
 
 services:
@@ -125,10 +125,9 @@ services:
 ```
 xdebug.remote_enable=on
 xdebug.remote_autostart=off
-
 ```
 
-Container 구동
+Container 구동, `# HOST IP #`는 `ifconfig` 툴 등으로 IP를, `# HOST NAME #`에는 브라우져에서 접속한 도메인 명을 입력
 ```
 $ docker run -d -p 80 \ 
     -v $(pwd):/var/www/html \
