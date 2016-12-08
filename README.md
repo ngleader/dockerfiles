@@ -1,5 +1,7 @@
 # PHP 개발을 위한 Docker 
 
+PHP 공식 Docker가 제공되지만, 별도 php extension가 필요하면, dockerFile를 만들고 build를 해야하는 번거로움이 있어 webtatic 과 remi repo에서 제공하는 패키지를 거의 모두 설치해둔 Docker Image를  만들게 되었습니다. 
+
 ## Apache + PHP 구동 방법. 간단 버전
 
 ```
@@ -8,7 +10,7 @@ $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-
 
 `-p 80` 으로 구동한 경우 container의 80 port를 host의 random port와 연결한다는 의미로
 `docker ps` 를 통해 나온 `0.0.0.0:xxxxx->80` 과 같이 브라우져에서 `http://127.0.0.1:xxxxx`로 접속이 가능하며
-`-p 8080:80` 과 같이 host의 8080 port를 지정할 수도 있습니다.
+`-p 8080:80` 과 같이 host의 8080 port로 지정하여 구동이 가능합니다.
 
 ### docker images
 - ngleader/docker-base:centos7-remi-php71
@@ -21,8 +23,7 @@ $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-
 - ngleader/docker-base:centos6-remi-php56
 
 ### Config 수정
-대부분의 php extensions가 설치되어 있습니다.
-아래와 같이 php와 httpd config 파일을 수정하여 container를 구동할 수 있습니다
+아래와 같이 php와 httpd config를 수정하여 container를 구동할 수 있습니다.
 
 #### 필요한 버전의 dummy container 구동
 #### dummy container에서 config files 복사
