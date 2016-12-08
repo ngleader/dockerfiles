@@ -26,7 +26,8 @@ $ docker cp {container id}:/etc/php/php.ini .
 $ docker cp {container id}:/etc/php.d .
 $ docker cp {container id}:/etc/httpd/conf/httpd.conf .
 $ docker cp {container id}:/etc/httpd/conf.d .
-$ docker {container id} stop && docker {container id} rm
+$ docker {container id} stop 
+$ docker {container id} rm
 ```
 * remi package인 경우 path가 다르니 phpinfo() 등으로 확인이 필요합니다.
 3. config가 반영된 새로운 container 구동
@@ -36,7 +37,7 @@ $ docker run -d -p 80 \
     -v $(pwd)/php.ini:/etc/php.ini \
     -v $(pwd)/php.d:/etc/php.d \
     -v $(pwd)/logs:/etc/httpd/logs \
-    ngleader/docker-base:centos6-remi-php56
+    ngleader/docker-base:centos6-webtatic-php56
 ```
 
 ### Container 안으로 
@@ -65,9 +66,27 @@ docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=phpuni
 
 ### Run with MySQL etc.
 
-`docker-compose.yml` 저장 후, `$ docker-compose up -d`
+#### docker
+
+```
+$ docker run -d --name mysql -p 3306 \
+    -v $(pwd)/data:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=root \
+    -e MYSQL_DATABASE=web \
+    -e MYSQL_USER=web \
+    -e MYSQL_PASSWORD=web\
+    mysql:5.7
+$ docker run -d -p 80 \
+    --link mysql:mysql \
+    -v $(pwd)/html:/var/www/html \
+    ngleader/docker-base:centos6-webtatic-php56
+```
+
+#### docker-compose
+`$ docker-compose up -d`
  
 ```
+# docker-compose.yml
 version: '2'
 
 services:
@@ -99,3 +118,26 @@ services:
     image: memcached:1.4
     restart: always
 ```
+
+### Debugging with Xdebug and PHPStorm
+
+위 Config 변경방법을 통해 `/etc/php.d/xdebug.ini` 에 두 줄 추가
+```
+xdebug.remote_enable=on
+xdebug.remote_autostart=off
+
+```
+
+Container 구동
+```
+$ docker run -d -p 80 \ 
+    -v $(pwd):/var/www/html \
+    -v $(pwd)/php.d:/etc/php.d \
+    -e XDEBUG_CONFIG="remote_host=# HOST IP #" \
+    -e PHP_IDE_CONFIG="serverName=# HOST NAME #" \
+    ngleader/docker-base:centos7-webtatic-php70
+```
+
+PHPStorm 에서 `Preferences > Languages & Frameworks > PHP > Servers` 에서 `+` 추가시 Host 항목에 위의 `# HOST NAME #` 입력
+
+PHPStorm 툴바에서 전화기 모양의 `Start Listening for PHP Debuging Connections` 클릭
