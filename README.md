@@ -1,5 +1,4 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/ngleader/docker-base.svg)](https://hub.docker.com/r/ngleader/docker-base/)
-[![Docker Stars](https://img.shields.io/docker/stars/ngleader/docker-base.svg)](https://hub.docker.com/r/wurstmeister/kafka/)
 
 
 # PHP 개발을 위한 Docker 
