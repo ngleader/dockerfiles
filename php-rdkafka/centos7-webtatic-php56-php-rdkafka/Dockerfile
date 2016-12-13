@@ -14,16 +14,16 @@ RUN curl https://getcomposer.org/installer | php -- && mv composer.phar /usr/loc
 # Install phpunit
 RUN curl https://phar.phpunit.de/phpunit.phar -L -o /usr/local/bin/phpunit && chmod +x /usr/local/bin/phpunit
 
-RUN yum install -y gcc gcc-c++ make
-
-RUN mkdir src && cd src && \
+# install librdkafka
+RUN yum install -y gcc gcc-c++ make re2c
+RUN cd ~ && mkdir src && cd ~/src && \
     git clone https://github.com/edenhill/librdkafka.git && cd librdkafka && \
     ./configure && make && make install
-
+# install php-rdkafka
 RUN cd ~/src && \
-        git clone https://github.com/arnaud-lb/php-rdkafka.git && cd php-rdkafka && \
-        phpize && ./configure && make all -j 5 && make install && \
-        echo "extension=rdkafka.so" > /etc/php.d/rdkafka.ini
+    git clone https://github.com/arnaud-lb/php-rdkafka.git && cd php-rdkafka && \
+    phpize && ./configure && make all -j 5 && make install && \
+    echo "extension=rdkafka.so" > /etc/php.d/rdkafka.ini
 
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
