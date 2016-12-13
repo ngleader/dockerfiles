@@ -30,13 +30,13 @@ memory_limit 수정, php extension 수정, http rewrite 수정 등 php와 httpd 
 
 #### dummy container에서 config files 복사
 ```
-$ docker run -d --name=dummy ngleader/docker-base:centos7-webtatic-php56
+$ docker run -d --name dummy ngleader/docker-base:centos7-webtatic-php56
 $ docker cp dummy:/etc/php.ini .
 $ docker cp dummy:/etc/php.d .
 $ docker cp dummy:/etc/httpd/conf/httpd.conf .
 $ docker cp dummy:/etc/httpd/conf.d .
-$ docker dummy stop 
-$ docker dummy rm
+$ docker stop dummy 
+$ docker rm dummy
 ```
 * remi package인 경우 path가 다르니 `phpinfo()` 또는 `Container 안으로 접속하기` 로 확인이 필요합니다.
 
