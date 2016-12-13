@@ -1,3 +1,7 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/ngleader/docker-base.svg)](https://hub.docker.com/r/ngleader/docker-base/)
+[![Docker Stars](https://img.shields.io/docker/stars/ngleader/docker-base.svg)](https://hub.docker.com/r/wurstmeister/kafka/)
+
+
 # PHP 개발을 위한 Docker 
 
 PHP 공식 Docker가 제공되지만, 별도 php extension가 필요하면, dockerFile를 만들고 build를 해야하는 번거로움이 있어 webtatic 과 remi repo에서 제공하는 패키지를 거의 모두 설치한 Docker Image를  만들게 되었습니다. 
