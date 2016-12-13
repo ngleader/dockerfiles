@@ -28,15 +28,15 @@ $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-
 ### Config 수정
 memory_limit 수정, php extension 수정, http rewrite 수정 등 php와 httpd config를 수정하여 container를 구동할 수 있습니다.
 
-#### 필요한 버전의 dummy container 구동
 #### dummy container에서 config files 복사
 ```
-$ docker cp {container id}:/etc/php/php.ini .
-$ docker cp {container id}:/etc/php.d .
-$ docker cp {container id}:/etc/httpd/conf/httpd.conf .
-$ docker cp {container id}:/etc/httpd/conf.d .
-$ docker {container id} stop 
-$ docker {container id} rm
+$ docker run -d --name=dummy ngleader/docker-base:centos7-webtatic-php56
+$ docker cp dummy:/etc/php.ini .
+$ docker cp dummy:/etc/php.d .
+$ docker cp dummy:/etc/httpd/conf/httpd.conf .
+$ docker cp dummy:/etc/httpd/conf.d .
+$ docker dummy stop 
+$ docker dummy rm
 ```
 * remi package인 경우 path가 다르니 `phpinfo()` 또는 `Container 안으로 접속하기` 로 확인이 필요합니다.
 
