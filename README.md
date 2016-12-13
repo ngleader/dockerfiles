@@ -47,7 +47,7 @@ $ docker run -d -p 80 \
     -v $(pwd)/php.ini:/etc/php.ini \
     -v $(pwd)/php.d:/etc/php.d \
     -v $(pwd)/logs:/etc/httpd/logs \
-    ngleader/docker-base:centos6-webtatic-php56
+    ngleader/docker-base:centos7-webtatic-php56
 ```
 
 ### Container 안으로 접속하기
