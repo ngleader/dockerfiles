@@ -2,11 +2,10 @@
 
 
 # PHP 개발을 위한 Docker 
-
-PHP 공식 Docker가 제공되지만, 별도 php extension가 필요하면, dockerFile를 만들고 build를 해야하는 번거로움이 있어 webtatic 과 remi repo에서 제공하는 패키지를 거의 모두 설치한 Docker Image를  만들게 되었습니다. 
+PHP 공식 Docker가 제공되지만, 별도 php extension가 필요하면, dockerFile를 만들고 build를 해야하는 번거로움이 있습니다.
+webtatic 과 remi repo에서 제공하는 패키지를 거의 모두 설치한 Docker Image를 만들게 되었습니다. 
 
 ## Apache + PHP 구동 방법. 간단 버전
-
 ```
 $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-php71
 ```
@@ -26,7 +25,8 @@ $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-
 - ngleader/docker-base:centos6-remi-php56
 
 ### Config 수정
-memory_limit 수정, php extension 수정, http rewrite 수정 등 php와 httpd config를 수정하여 container를 구동할 수 있습니다.
+container 내부의 설정파일을 host로 옮겨, 수정하여 구동이 가능합니다.
+즉, php와 httpd config인 php.ini와 php.d/*.ini, httpd.conf 파일 수정하여 container를 구동이 가능합니다.
 
 #### dummy container에서 config files 복사
 ```
@@ -38,11 +38,11 @@ $ docker cp dummy:/etc/httpd/conf.d .
 $ docker stop dummy 
 $ docker rm dummy
 ```
-* remi package인 경우 path가 다르니 `phpinfo()` 또는 `Container 안으로 접속하기` 로 확인이 필요합니다.
+* 단, remi package인 경우 path가 다르니 `phpinfo()` 또는 `Container 안으로 접속하기` 로 확인이 필요합니다.
 
 #### config가 반영된 새로운 container 구동
 ```
-$ docker run -d -p 80 \
+$ docker run -d -p 8080:80 \
     -v $(pwd)/html:/var/www/html \
     -v $(pwd)/php.ini:/etc/php.ini \
     -v $(pwd)/php.d:/etc/php.d \
@@ -54,6 +54,7 @@ $ docker run -d -p 80 \
 `$ docker exec -it {container id} /bin/bash`
 
 ### PHP-CLI
+host에 php설치 없이, docker를 이용하여 php-cli를 실행하는 방법
 
 #### php70
 
@@ -66,6 +67,7 @@ docker run -it --rm -v $(pwd):/var/www/html -w /var/www/html --entrypoint=php ng
 ```
 $ ./php70 --version
 ```
+
 #### composer
 ```
 #!/bin/bash
@@ -90,7 +92,7 @@ $ docker run -d --name mysql -p 3306 \
     -e MYSQL_USER=web \
     -e MYSQL_PASSWORD=web\
     mysql:5.7
-$ docker run -d -p 80 \
+$ docker run -d -p 8080:80 \
     --link mysql:mysql \
     -v $(pwd)/html:/var/www/html \
     ngleader/docker-base:centos6-webtatic-php56
@@ -107,7 +109,7 @@ services:
   web:
     image: ngleader/docker-base:centos7-webtatic-php70
     ports:
-      - "80"
+      - "8080:80"
     volumes:
       - ./html:/var/www/html
       - ./logs:/etc/httpd/logs
