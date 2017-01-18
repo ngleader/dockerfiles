@@ -17,6 +17,7 @@ $ docker run -d -p 80 -v $(pwd):/var/www/html ngleader/docker-base:centos7-remi-
 ### docker images
 - ngleader/docker-base:centos7-remi-php71
 - ngleader/docker-base:centos6-remi-php71
+- ngleader/docker-base:centos7-webtatic-php71
 - ngleader/docker-base:centos7-webtatic-php70
 - ngleader/docker-base:centos6-webtatic-php70
 - ngleader/docker-base:centos7-webtatic-php56
