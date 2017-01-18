@@ -7,7 +7,9 @@ RUN yum install -y git php70w php70w-bcmath php70w-cli php70w-common php70w-dba 
         php70w-pecl-imagick-devel php70w-pecl-mongodb php70w-pecl-redis php70w-pecl-xdebug php70w-process php70w-snmp \
         php70w-soap php70w-tidy php70w-xml php70w-xmlrpc && \
         rm -f /etc/httpd/conf.d/welcome.conf && \
-        sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /etc/php.ini
+        sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /etc/php.ini && \
+        sed -i "s|expose_php = On|expose_php = Off|" /etc/php.ini && \
+        sed -i "s|variables_order =|;variables_order =|" /etc/php.ini
 
 RUN yum install -y gcc gcc-c++ make re2c
 

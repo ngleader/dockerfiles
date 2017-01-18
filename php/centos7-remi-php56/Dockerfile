@@ -14,6 +14,8 @@ RUN yum install -y git \
         php56-php-xml php56-php-xmlrpc && \
         rm -f /etc/httpd/conf.d/welcome.conf && \
         sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /opt/remi/php56/root/etc/php.ini && \
+        sed -i "s|expose_php = On|expose_php = Off|" /opt/remi/php56/root/etc/php.ini && \
+        sed -i "s|variables_order =|;variables_order =|" /opt/remi/php56/root/etc/php.ini && \
         ln -s /usr/bin/php56 /usr/bin/php
 
 # Install composer
@@ -23,4 +25,3 @@ RUN curl https://phar.phpunit.de/phpunit.phar -L -o /usr/local/bin/phpunit && ch
 
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-

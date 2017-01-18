@@ -14,6 +14,8 @@ RUN yum install -y git \
         php71-php-xml php71-php-xmlrpc && \
         rm -f /etc/httpd/conf.d/welcome.conf && \
         sed -i "s|;date.timezone =|date.timezone = Asia/Seoul|" /etc/opt/remi/php71/php.ini && \
+        sed -i "s|expose_php = On|expose_php = Off|" /etc/opt/remi/php71/php.ini && \
+        sed -i "s|variables_order =|;variables_order =|" /etc/opt/remi/php71/php.ini && \
         ln -s /usr/bin/php71 /usr/bin/php
 
 # Install composer
